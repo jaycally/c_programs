@@ -1,0 +1,33 @@
+// Joseph Thuo
+// CT100/G/26202/25
+// Introduction to Programming
+// SPT 2103
+// Week 7 – File Handling: Read student records from results.dat (binary)
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Student {
+    char name[50];
+    char reg_no[20];
+    int total_marks;
+};
+
+int main() {
+    FILE *file;
+    struct Student s;
+
+    file = fopen("results.dat", "rb"); // Binary read
+    if (file == NULL) {
+        printf("Error opening file.\n");
+        return 1;
+    }
+
+    printf("Student Results:\n");
+    while (fread(&s, sizeof(s), 1, file)) {
+        printf("Name: %s | Marks: %d\n", s.name, s.total_marks);
+    }
+
+    fclose(file);
+    return 0;
+}
